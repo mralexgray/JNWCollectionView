@@ -18,42 +18,28 @@
 @implementation ListCell
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
-	self = [super initWithFrame:frameRect];
-	if (self == nil) return nil;
-	
-	self.label = [[JNWLabel alloc] initWithFrame:CGRectZero];
-	[self.contentView addSubview:self.label];
-	
-	return self;
-}
 
-- (void)layout {
-	[super layout];
+  return self = [super initWithFrame:frameRect]
+              ? [self.contentView addSubview:_label = [JNWLabel.alloc initWithFrame:CGRectZero]], self : nil;
+}
+- (void)layout { [super layout];
 	
 	CGRect labelRect = CGRectMake(15, 10, 100, 20);
-	if (!CGRectEqualToRect(labelRect, self.label.frame)) {
-		self.label.frame = labelRect;
-	}
+	self.label.frame = !CGRectEqualToRect(labelRect, self.label.frame) ? labelRect :self.label.frame;
 }
 
-- (void)setCellLabelText:(NSString *)cellLabelText {
-	_cellLabelText = cellLabelText;
-	self.label.text = cellLabelText;
-}
+- (void)setCellLabelText:(NSString *)cellLabelText { _cellLabelText = self.label.text = cellLabelText; }
 
-- (void)setSelected:(BOOL)selected {
-	[super setSelected:selected];
-	[self updateBackgroundImage];
-}
+- (void)setSelected:(BOOL)selected { [super setSelected:selected]; [self updateBackgroundImage]; }
 
 - (void)updateBackgroundImage {
+
 	NSString *identifier = [NSString stringWithFormat:@"%@%x", NSStringFromClass(self.class), self.selected];
 	CGSize size = CGSizeMake(1, CGRectGetHeight(self.bounds));
-	self.backgroundImage = [DemoImageCache.sharedCache cachedImageWithIdentifier:identifier size:size withCreationBlock:^NSImage * (CGSize size) {
-		if (self.selected)
-			return [NSImage highlightedGradientImageWithHeight:size.height];
-		return [NSImage standardGradientImageWithHeight:size.height];
-	}];
+	self.backgroundImage  = [DemoImageCache.sharedCache cachedImageWithIdentifier:identifier size:size withCreationBlock:^NSImage * (CGSize size) {
+    return self.selected  ? [NSImage highlightedGradientImageWithHeight:size.height]
+                          : [NSImage standardGradientImageWithHeight:size.height];
+  }];
 }
 
 @end
