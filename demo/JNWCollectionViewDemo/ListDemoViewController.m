@@ -26,6 +26,7 @@ static NSString * const cellIdentifier    = @"CELL",
 	JNWCollectionViewListLayout *layout       = JNWCollectionViewListLayout.new;
 //	layout.rowHeight                          = 44.f;
 	layout.delegate                           = self;
+  layout.stickyHeaders                      = YES;
 	self.collectionView.collectionViewLayout  = layout;
 	
 	[self.collectionView registerClass:ListCell.class   forCellWithReuseIdentifier:cellIdentifier];
@@ -37,7 +38,7 @@ static NSString * const cellIdentifier    = @"CELL",
 
 - (JNWCollectionViewCell*) collectionView:(JNWCollectionView*)cV cellForItemAtIndexPath:(NSIndexPath*)iP {
 	ListCell *cell = (ListCell *)[cV dequeueReusableCellWithIdentifier:cellIdentifier];
-	cell.cellLabelText = [NSString stringWithFormat:@"%ld - %ld", iP.jnw_item, iP.jnw_section];
+	cell.cellLabelText = [NSString stringWithFormat:@"%ld - sect:%ld row:%lu", iP.jnw_item, iP.jnw_section,iP.length];
 	return cell;
 }
 
