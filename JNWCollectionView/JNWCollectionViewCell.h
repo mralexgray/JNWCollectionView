@@ -34,7 +34,7 @@
 
 /// Sets the selection with no animation. Subclassers should override this method to add side
 /// effects to the selection process.
-@property (nonatomic, assign) BOOL selected;
+@property (nonatomic) BOOL selected, hovered;
 
 /// Calls -setSelected:, animating any changes to the content of the background view, such as
 /// settting the background iamge or color.
@@ -46,7 +46,7 @@
 /// Alternatively, a custom content view can be set for a flatter heirarchy. Note that
 /// any custom content views will have autoresizing masks applied to them, and the view
 /// will be layer-backed.
-@property (nonatomic, strong) NSView *contentView;
+@property (nonatomic) NSView *contentView;
 
 /// Sets the background image or background color on a dedicated background view that
 /// is always beneath the content view.
@@ -60,13 +60,13 @@
 /// view is set to YES.
 ///
 /// Defaults to 0.25.
-@property (nonatomic, assign) CGFloat crossfadeDuration;
+@property (nonatomic) CGFloat crossfadeDuration;
 
 /// The reuse identifier.
 @property (nonatomic, copy, readonly) NSString *reuseIdentifier;
 
 /// The current index path.
-@property (nonatomic, strong, readonly) NSIndexPath *indexPath;
+@property (nonatomic, readonly) NSIndexPath *indexPath;
 
 /// Called when the cell will be layed out using the provided frame.
 - (void)willLayoutWithFrame:(CGRect)frame;
