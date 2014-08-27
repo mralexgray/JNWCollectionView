@@ -32,12 +32,15 @@
 
 - (void)setSelected:(BOOL)selected { [super setSelected:selected]; [self updateBackgroundImage]; }
 
+- (void)setHovered:(BOOL)hovered { [super setHovered:hovered]; [self updateBackgroundImage]; }
+
 - (void)updateBackgroundImage {
 
-	NSString *identifier = [NSString stringWithFormat:@"%@%x", NSStringFromClass(self.class), self.selected];
+	NSString *identifier = [NSString stringWithFormat:@"%@%x%x%@", self.className, self.selected, self.hovered,self.backgroundColor.description];
 	CGSize size = CGSizeMake(1, CGRectGetHeight(self.bounds));
 	self.backgroundImage  = [DemoImageCache.sharedCache cachedImageWithIdentifier:identifier size:size withCreationBlock:^NSImage * (CGSize size) {
-    return self.selected  ? [NSImage highlightedGradientImageWithHeight:size.height]
+    return self.selected  ? [NSImage highlightedGradientImageWithHeight:size.height] :
+            self.hovered  ? [NSImage gradientImageWithHeight:size.height color:self.backgroundColor]
                           : [NSImage standardGradientImageWithHeight:size.height];
   }];
 }
